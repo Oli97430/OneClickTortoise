@@ -19,6 +19,7 @@
   "build": {
     "appId": "com.tortoisekeeper.app",
     "productName": "OneClickTortoise",
+    "afterPack": "./scripts/afterPack.js",
     "directories": {
       "buildResources": "public",
       "output": "dist"
