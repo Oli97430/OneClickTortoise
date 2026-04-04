@@ -1,0 +1,113 @@
+{
+  "name": "tortoisekeeper-web",
+  "version": "1.0.0",
+  "private": true,
+  "proxy": "http://localhost:4000",
+  "description": "Gestionnaire de tortues accessible depuis navigateur.",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "build:desktop": "npm run build && electron-builder --win --mac",
+    "build:win": "npm run build && electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.tortoisekeeper.app",
+    "productName": "OneClickTortoise",
+    "directories": {
+      "buildResources": "public",
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "public/electron.js",
+      "public/favicon.ico"
+    ],
+    "extraResources": [
+      {
+        "from": "../tortoisekeeper-backend",
+        "to": "backend",
+        "filter": [
+          "server.js",
+          "package.json",
+          "node_modules/**",
+          "!node_modules/.cache/**",
+          "!node_modules/.bin/**"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/favicon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "public/favicon.ico",
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["fr_FR", "en_US"],
+      "language": "1036",
+      "differentialPackage": false
+    }
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/material": "^5.15.0",
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2",
+    "chart.js": "^4.4.1",
+    "hls.js": "^1.6.2",
+    "html2canvas": "^1.4.1",
+    "idb-keyval": "^6.2.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.5.3",
+    "react-scripts": "5.0.1",
+    "typescript": "^5.2.2",
+    "vis-timeline": "^7.7.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1",
+    "wait-on": "^9.0.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

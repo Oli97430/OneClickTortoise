@@ -1,0 +1,24 @@
+# Dépendances
+node_modules/
+
+# Build / dist
+tortoisekeeper-web/build/
+tortoisekeeper-web/dist/
+tortoisekeeper-web/coverage/
+
+# Données runtime (ne pas versionner)
+tortoisekeeper-backend/data.json
+tortoisekeeper-backend/uploads/
+tortoisekeeper-backend/backups/
+data.json
+
+# Environnement
+.env
+*.log
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.user

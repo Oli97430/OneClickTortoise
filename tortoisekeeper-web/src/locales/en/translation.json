@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "tortoise_list": "Tortoise List",
+    "nutrition": "Nutrition",
+    "gallery": "Gallery",
+    "dashboard": "Dashboard",
+    "patreon": "Patreon",
+    "contact": "Contact"
+  },
+  "patreon": {
+    "title": "Support Our Project on Patreon",
+    "description": "By supporting our project on Patreon, you directly contribute to improving the well-being of our Sulcata and Radiata tortoises. Your support is not about selling animals, but about funding habitat optimization, food quality, and essential care to ensure they lead a healthy and balanced life. Currently situated in a rented space with limited room, a larger terrain—rented or owned—would allow us to offer our tortoises an environment closer to their natural habitat, promoting their health and growth. To join this journey, I will regularly post photos and update their weight tracking, a key health indicator, so you can see the tangible impact of your contribution. This tracking naturally encourages ongoing support to best accompany their growth and daily well-being."  
+  }
+}

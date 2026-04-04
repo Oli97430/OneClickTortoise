@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OneClickTortoise — Le carnet de santé gratuit pour vos tortues</title>
+  <meta name="description" content="OneClickTortoise est un logiciel 100% gratuit pour gérer votre élevage de tortues de A à Z : fiches, poids, photos, vétérinaire, pontes et bien plus." />
+  <link rel="icon" href="public/logo.svg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #1b5e20;
+      --green:        #2e7d32;
+      --green-mid:    #388e3c;
+      --green-light:  #66bb6a;
+      --green-pale:   #e8f5e9;
+      --green-xpale:  #f1f8e9;
+      --gold:         #f9a825;
+      --white:        #ffffff;
+      --text:         #1a2e1a;
+      --text-light:   #4a644a;
+      --radius:       16px;
+      --shadow:       0 8px 32px rgba(27,94,32,.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #d7ecd8;
+      padding: 12px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { height: 36px; }
+    .nav-logo span { font-size: 1.15rem; font-weight: 800; color: var(--green-dark); letter-spacing: .3px; }
+    .nav-free-badge {
+      background: linear-gradient(135deg, var(--gold), #ffca28);
+      color: #5d3d00; font-weight: 800; font-size: .78rem;
+      padding: 3px 10px; border-radius: 20px; letter-spacing: .5px;
+      box-shadow: 0 2px 8px rgba(249,168,37,.4);
+      white-space: nowrap;
+    }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      color: #fff; font-weight: 700; font-size: .9rem;
+      padding: 9px 20px; border-radius: 30px;
+      text-decoration: none; white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(46,125,50,.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,125,50,.45); }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(145deg, var(--green-dark) 0%, var(--green) 40%, var(--green-mid) 70%, #558b2f 100%);
+      color: #fff;
+      padding: 80px 24px 90px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.1) 2px, transparent 2px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 800px; margin: 0 auto; }
+
+    .free-ribbon {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--gold), #ffca28);
+      color: #5d3d00; font-weight: 900; font-size: 1rem;
+      padding: 8px 22px; border-radius: 40px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 20px rgba(249,168,37,.5);
+      animation: pulse-gold 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-gold {
+      0%,100% { box-shadow: 0 4px 20px rgba(249,168,37,.5); }
+      50%      { box-shadow: 0 4px 30px rgba(249,168,37,.9); }
+    }
+    .free-ribbon .star { font-size: 1.2rem; }
+
+    .hero-logo { width: 90px; height: 90px; margin: 0 auto 20px; display: block;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,.35)); }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900; letter-spacing: -.5px;
+      text-shadow: 0 3px 16px rgba(0,0,0,.25);
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #a5d6a7; }
+
+    .hero-sub {
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      opacity: .9; font-weight: 400; max-width: 620px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #ffca28);
+      color: #5d3d00; font-weight: 800; font-size: 1.05rem;
+      padding: 14px 32px; border-radius: 40px; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(249,168,37,.5);
+      transition: transform .2s, box-shadow .2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(249,168,37,.6); }
+    .btn-secondary {
+      background: rgba(255,255,255,.15); color: #fff;
+      font-weight: 700; font-size: 1.05rem;
+      padding: 14px 28px; border-radius: 40px; text-decoration: none;
+      border: 2px solid rgba(255,255,255,.5);
+      transition: background .2s, border-color .2s;
+      backdrop-filter: blur(6px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.25); border-color: #fff; }
+
+    .hero-stats {
+      display: flex; gap: 24px; justify-content: center;
+      flex-wrap: wrap; margin-top: 48px;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,.15); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 10px 20px; border-radius: 30px;
+      font-weight: 700; font-size: .95rem;
+    }
+
+    /* ── TRUST BAR ───────────────────────────────────── */
+    .trust-bar {
+      background: var(--green-dark);
+      color: rgba(255,255,255,.9);
+      padding: 14px 24px;
+      display: flex; justify-content: center; align-items: center;
+      gap: 32px; flex-wrap: wrap;
+      font-size: .9rem; font-weight: 600;
+    }
+    .trust-item { display: flex; align-items: center; gap: 6px; }
+    .trust-item span { font-size: 1.1rem; }
+
+    /* ── SECTION HELPER ──────────────────────────────── */
+    section { padding: 80px 24px; }
+    .section-tag {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green);
+      font-weight: 700; font-size: .8rem; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900; color: var(--green-dark);
+      line-height: 1.2; margin-bottom: 16px;
+    }
+    .lead { font-size: 1.1rem; color: var(--text-light); max-width: 620px; }
+    .centered { text-align: center; }
+    .centered .lead { margin: 0 auto; }
+    .max-w { max-width: 1100px; margin: 0 auto; }
+
+    /* ── FREE SECTION ────────────────────────────────── */
+    .free-section {
+      background: linear-gradient(135deg, var(--gold) 0%, #ffca28 60%, #ffe082 100%);
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .free-section h2 { color: #4e2d00; font-size: clamp(2rem, 5vw, 3.2rem); }
+    .free-section p { color: #6b3d00; font-size: 1.15rem; max-width: 600px; margin: 12px auto 0; }
+    .free-section .big-free {
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 900; color: #fff;
+      text-shadow: 0 4px 24px rgba(0,0,0,.15);
+      line-height: 1; margin: 16px 0;
+      letter-spacing: -2px;
+    }
+    .free-section .big-free em { font-style: normal; color: #4e2d00; }
+
+    /* ── FEATURES ────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1.5px solid #d7ecd8;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(27,94,32,.18); }
+    .feature-icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--green-dark); margin-bottom: 8px; }
+    .feature-card p { font-size: .93rem; color: var(--text-light); line-height: 1.6; }
+
+    /* ── PHOTOS GALLERY ──────────────────────────────── */
+    .gallery-section { background: var(--green-xpale); }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px; margin-top: 40px;
+    }
+    .photo-grid img {
+      width: 100%; aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .photo-grid img:hover { transform: scale(1.04); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+
+    /* ── HOW IT WORKS ────────────────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px; margin-top: 48px; counter-reset: step;
+    }
+    .step { text-align: center; }
+    .step-num {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      color: #fff; font-weight: 900; font-size: 1.4rem;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 16px rgba(46,125,50,.35);
+    }
+    .step h3 { font-size: 1.05rem; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
+    .step p { font-size: .9rem; color: var(--text-light); }
+
+    /* ── DOWNLOAD ────────────────────────────────────── */
+    .download-section {
+      background: linear-gradient(145deg, var(--green-dark), var(--green-mid));
+      color: #fff; text-align: center;
+    }
+    .download-section h2 { color: #fff; }
+    .download-section .lead { color: rgba(255,255,255,.85); margin: 0 auto 36px; }
+    .os-badges {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      margin-top: 24px; margin-bottom: 16px;
+    }
+    .os-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
+      color: #fff; font-weight: 600; font-size: .9rem;
+      padding: 10px 20px; border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+    .disclaimer { font-size: .82rem; opacity: .65; margin-top: 14px; }
+
+    /* ── AUTHOR ──────────────────────────────────────── */
+    .author-section { background: var(--green-pale); }
+    .author-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 580px;
+      margin: 40px auto 0;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 1.5px solid #d7ecd8;
+    }
+    .author-avatar {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      border-radius: 50%; margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem; box-shadow: 0 4px 16px rgba(46,125,50,.3);
+    }
+    .author-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--green-dark); margin-bottom: 4px; }
+    .author-card .role { color: var(--text-light); font-size: .95rem; margin-bottom: 16px; }
+    .author-card p { color: var(--text-light); font-size: .95rem; line-height: 1.7; margin-bottom: 20px; }
+    .author-email {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-pale); color: var(--green-dark);
+      font-weight: 700; font-size: .95rem;
+      padding: 10px 20px; border-radius: 30px;
+      text-decoration: none;
+      border: 1.5px solid #c8e6c9;
+      transition: background .2s;
+    }
+    .author-email:hover { background: #c8e6c9; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,.7);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: .88rem;
+    }
+    footer strong { color: #fff; }
+    footer .heart { color: #ef9a9a; }
+    footer .tortoise { font-size: 1.2rem; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { padding: 10px 16px; }
+      .nav-cta { display: none; }
+      section { padding: 56px 16px; }
+      .author-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="public/logo.svg" alt="OneClickTortoise" />
+    <span>OneClickTortoise</span>
+  </a>
+  <span class="nav-free-badge">⭐ 100% GRATUIT</span>
+  <a href="#telecharger" class="nav-cta">⬇ Télécharger</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════ HERO -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="free-ribbon">
+      <span class="star">🎁</span>
+      LOGICIEL 100% GRATUIT — POUR TOUJOURS
+      <span class="star">🎁</span>
+    </div>
+
+    <img src="public/logo.svg" alt="Logo OneClickTortoise" class="hero-logo" />
+
+    <h1>OneClick<span>Tortoise</span></h1>
+
+    <p class="hero-sub">
+      Le logiciel complet pour gérer votre élevage de tortues de&nbsp;A&nbsp;à&nbsp;Z.<br />
+      Fiches individuelles, suivi du poids, photos, vétérinaire, pontes… tout en un clic.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#telecharger" class="btn-primary">
+        ⬇ Télécharger gratuitement
+      </a>
+      <a href="#fonctionnalites" class="btn-secondary">
+        Découvrir les fonctionnalités
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-pill">🐢 Élevage multi-espèces</div>
+      <div class="stat-pill">🖥️ Windows &amp; Mac</div>
+      <div class="stat-pill">🔒 Données 100% locales</div>
+      <div class="stat-pill">🆓 Gratuit sans limite</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span>✅</span> Aucune inscription requise</div>
+  <div class="trust-item"><span>✅</span> Pas d'abonnement</div>
+  <div class="trust-item"><span>✅</span> Aucune pub</div>
+  <div class="trust-item"><span>✅</span> Données stockées sur votre PC</div>
+  <div class="trust-item"><span>✅</span> Mises à jour gratuites</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ GRATUIT -->
+<div class="free-section">
+  <div class="section-tag">💚 Philosophie du projet</div>
+  <div class="big-free">100&nbsp;% <em>GRATUIT</em></div>
+  <h2>Un outil professionnel sans débourser un centime</h2>
+  <p>
+    OneClickTortoise est né d'une passion pour les tortues. Il est distribué gratuitement à tous les éleveurs,
+    amateurs comme passionnés, sans limitation de fonctionnalités ni de durée.
+  </p>
+</div>
+
+
+<!-- ═══════════════════════════════════════ FEATURES -->
+<section id="fonctionnalites">
+  <div class="max-w">
+    <div class="centered">
+      <div class="section-tag">🛠️ Fonctionnalités</div>
+      <h2>Tout ce qu'il faut pour gérer votre élevage</h2>
+      <p class="lead">De la création de la fiche à l'export des données, OneClickTortoise couvre chaque aspect du suivi de vos tortues.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🐢</div>
+        <h3>Fiches individuelles</h3>
+        <p>Créez une fiche complète pour chaque tortue : nom, espèce, date de naissance, sexe, notes personnalisées et photos (face, carapace, plastron).</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚖️</div>
+        <h3>Suivi du poids &amp; des mesures</h3>
+        <p>Enregistrez chaque pesée et mesure. Des graphiques de croissance vous montrent l'évolution de votre tortue dans le temps.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <h3>Galerie photos</h3>
+        <p>Ajoutez des photos par glisser-déposer. Chaque cliché est daté et associé à la fiche de la tortue.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🩺</div>
+        <h3>Fiche vétérinaire</h3>
+        <p>Suivez les visites, vaccins, vermifugations, maladies et interventions. Programmez vos prochains rendez-vous.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🥚</div>
+        <h3>Suivi des pontes</h3>
+        <p>Enregistrez vos pontes : nombre d'œufs, température et humidité d'incubation, date d'éclosion prévue et réelle, taux d'éclosion.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Chronologie de vie</h3>
+        <p>Visualisez en un coup d'œil l'historique complet de votre tortue : pesées, photos, soins, pontes… chronologiquement.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Graphiques de croissance</h3>
+        <p>Courbes de poids et de mesures avec tendance linéaire pour anticiper le développement de vos animaux.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💾</div>
+        <h3>Export &amp; Import complet</h3>
+        <p>Sauvegardez tout votre élevage (données + photos) en un seul fichier JSON. Restaurez-le d'un clic sur n'importe quel PC.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚠️</div>
+        <h3>Alertes de pesée</h3>
+        <p>Soyez prévenu automatiquement quand une tortue n'a pas été pesée depuis plus de 30 jours.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ GALLERY -->
+<section class="gallery-section">
+  <div class="max-w">
+    <div class="centered">
+      <div class="section-tag">📸 Vos tortues en photos</div>
+      <h2>Créez une galerie pour chaque tortue</h2>
+      <p class="lead">Glissez-déposez vos photos directement dans l'application. Elles sont toutes sauvegardées localement sur votre PC.</p>
+    </div>
+
+    <div class="photo-grid">
+      <img src="public/assets/turtles/IMG_20221212_120527.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20221212_120535.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20230108_105232.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20230108_105240.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20230116_081540.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20230128_163004.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20230129_101447.jpg" alt="Tortue" loading="lazy" />
+      <img src="public/assets/turtles/IMG_20230403_085525.jpg" alt="Tortue" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ HOW IT WORKS -->
+<section>
+  <div class="max-w">
+    <div class="centered">
+      <div class="section-tag">🚀 Prise en main</div>
+      <h2>Opérationnel en 3 minutes</h2>
+      <p class="lead">Pas besoin d'être informaticien. OneClickTortoise s'installe et se lance en un clic.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Téléchargez</h3>
+        <p>Téléchargez l'installeur Windows ou Mac gratuitement — un seul fichier, pas de compte nécessaire.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Installez</h3>
+        <p>Double-cliquez sur l'installeur et suivez les instructions. L'application est prête en quelques secondes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Créez vos fiches</h3>
+        <p>Ajoutez vos tortues avec le bouton vert, remplissez la fiche et commencez votre suivi immédiatement.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Gérez votre élevage</h3>
+        <p>Pesées, photos, soins vétérinaires, pontes… tout est accessible en quelques clics depuis votre bureau.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ DOWNLOAD -->
+<section class="download-section" id="telecharger">
+  <div class="max-w centered">
+    <div class="section-tag" style="background:rgba(255,255,255,.15); color:#fff;">⬇ Téléchargement</div>
+    <h2>Téléchargez OneClickTortoise</h2>
+    <p class="lead">Gratuit, sans inscription, sans abonnement. Pour toujours.</p>
+
+    <div style="margin-top: 32px;">
+      <a href="#" class="btn-primary" style="font-size:1.15rem; padding: 16px 40px; margin: 0 auto; display:inline-flex;">
+        🐢 Télécharger gratuitement
+      </a>
+    </div>
+
+    <div class="os-badges">
+      <div class="os-badge">🪟 Windows 10/11 (64-bit)</div>
+      <div class="os-badge">🍎 macOS (Intel &amp; Apple Silicon)</div>
+    </div>
+
+    <p class="disclaimer">
+      Version 1.0.0 · Données stockées localement, aucune connexion internet requise après installation.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ AUTHOR -->
+<section class="author-section">
+  <div class="max-w">
+    <div class="centered">
+      <div class="section-tag">👤 À propos</div>
+      <h2>Créé par un passionné de tortues</h2>
+      <p class="lead">OneClickTortoise est un projet open-source développé avec amour pour la communauté des éleveurs.</p>
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">🐢</div>
+      <h3>Olivier Hoarau</h3>
+      <p class="role">Développeur &amp; Passionné de tortues 🌿</p>
+      <p>
+        Ce logiciel est né d'un besoin réel : disposer d'un outil simple, complet et gratuit pour suivre
+        chaque tortue de son élevage. Il est distribué librement à toute la communauté, sans aucune contrepartie.
+      </p>
+      <a href="mailto:Tarraw974@Gmail.COM" class="author-email">
+        ✉️ Tarraw974@Gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ FOOTER -->
+<footer>
+  <p>
+    <span class="tortoise">🐢</span>
+    <strong>OneClickTortoise</strong> — Fait avec <span class="heart">♥</span> par <strong>Olivier Hoarau</strong>
+    · <a href="mailto:Tarraw974@Gmail.COM" style="color:inherit;">Tarraw974@Gmail.com</a>
+  </p>
+  <p style="margin-top: 8px; font-size: .8rem;">
+    Logiciel 100% gratuit · Aucune donnée collectée · Vos tortues vous appartiennent
+  </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "Testudo hermanni": {
+    "foods": [
+      { "name": "Pissenlit", "type": "Feuille", "advice": "Excellent, riche en calcium et fibres. Peut être donné quotidiennement." },
+      { "name": "Trèfle", "type": "Feuille", "advice": "Très bon, favorise la digestion. À donner souvent." },
+      { "name": "Laitue iceberg", "type": "Feuille", "advice": "À éviter, trop pauvre en nutriments et riche en eau." },
+      { "name": "Carotte", "type": "Légume racine", "advice": "Râpée, occasionnellement. Trop sucrée pour un usage quotidien." },
+      { "name": "Fraise", "type": "Fruit", "advice": "Rarement, riche en sucre. Utiliser comme friandise." },
+      { "name": "Mauve sauvage", "type": "Feuille/Fleur", "advice": "Très bonne, stimule l'appétit." },
+      { "name": "Plantain lancéolé", "type": "Feuille", "advice": "Excellent, riche en fibres et minéraux." },
+      { "name": "Endive", "type": "Feuille", "advice": "Bonne base, à mélanger avec d'autres feuilles." },
+      { "name": "Cresson", "type": "Feuille", "advice": "Excellente source de vitamines, à donner régulièrement." },
+      { "name": "Courgette", "type": "Légume", "advice": "À donner cru, en petits morceaux." },
+      { "name": "Figue", "type": "Fruit", "advice": "Rarement, très énergétique." }
+    ],
+    "tips": [
+      "Privilégier les plantes sauvages riches en calcium et pauvres en phosphore.",
+      "Éviter les aliments industriels et les fruits trop sucrés.",
+      "Toujours fournir de l'eau fraîche et propre.",
+      "Complémenter en calcium (os de seiche) et offrir un accès au soleil ou UVB.",
+      "Adapter la ration en fonction de l'âge et de l'activité de la tortue.",
+      "Éviter les aliments toxiques : pomme de terre, rhubarbe, laurier-rose, etc."
+    ]
+  },
+  "Testudo graeca": {
+    "foods": [
+      { "name": "Plantain", "type": "Feuille", "advice": "Très bon, riche en fibres et minéraux." },
+      { "name": "Laitue romaine", "type": "Feuille", "advice": "Correct, à varier avec d'autres feuilles." },
+      { "name": "Tomate", "type": "Fruit/Légume", "advice": "Rarement, acidité à surveiller." },
+      { "name": "Pomme", "type": "Fruit", "advice": "Très occasionnellement, bien laver la peau." },
+      { "name": "Fleurs d'hibiscus", "type": "Fleur", "advice": "Excellente friandise, riche en antioxydants." },
+      { "name": "Trèfle blanc", "type": "Feuille", "advice": "Très bon, stimule la digestion." },
+      { "name": "Mâche", "type": "Feuille", "advice": "Bonne base, à mélanger avec d'autres feuilles." },
+      { "name": "Radis (feuilles)", "type": "Feuille", "advice": "Très bon, à donner régulièrement." },
+      { "name": "Poivron", "type": "Légume", "advice": "En petits morceaux, occasionnellement." },
+      { "name": "Cerise", "type": "Fruit", "advice": "Rarement, bien retirer le noyau." }
+    ],
+    "tips": [
+      "Varier les sources de nourriture, privilégier les feuilles et fleurs.",
+      "Limiter les fruits, éviter les aliments riches en phosphore.",
+      "Toujours fournir de l'eau, un os de seiche et un accès à la lumière naturelle ou UVB.",
+      "Adapter la ration en période d'hibernation ou de reproduction.",
+      "Éviter les aliments toxiques : avocat, oignon, ail, etc."
+    ]
+  },
+  "Centrochelys sulcata": {
+    "foods": [
+      { "name": "Foin de prairie", "type": "Herbe sèche", "advice": "Base de l'alimentation, riche en fibres." },
+      { "name": "Herbe fraîche", "type": "Herbe", "advice": "À volonté, favorise l'usure du bec." },
+      { "name": "Cactus (opuntia)", "type": "Plante succulente", "advice": "Excellent, riche en eau et minéraux." },
+      { "name": "Feuille de mûrier", "type": "Feuille", "advice": "Très bon, à donner souvent." },
+      { "name": "Endive", "type": "Feuille", "advice": "Bonne base, à mélanger." },
+      { "name": "Carotte (feuilles)", "type": "Feuille", "advice": "Très bon, riche en vitamines." },
+      { "name": "Courge", "type": "Légume", "advice": "En petits morceaux, occasionnellement." },
+      { "name": "Pissenlit", "type": "Feuille", "advice": "Excellent, à donner régulièrement." }
+    ],
+    "tips": [
+      "Privilégier les aliments riches en fibres et pauvres en protéines.",
+      "Éviter les fruits et légumes riches en eau (sauf cactus).",
+      "Fournir un accès permanent à du foin sec.",
+      "Complémenter en calcium et surveiller la croissance rapide.",
+      "Éviter les aliments toxiques et les excès de protéines."
+    ]
+  },
+  "Testudo marginata": {
+    "foods": [
+      { "name": "Pissenlit", "type": "Feuille", "advice": "Base idéale, riche en calcium." },
+      { "name": "Trèfle", "type": "Feuille", "advice": "Très bon, favorise la digestion." },
+      { "name": "Laitue feuille de chêne", "type": "Feuille", "advice": "Correct, à varier." },
+      { "name": "Fleurs de pissenlit", "type": "Fleur", "advice": "Excellente friandise." },
+      { "name": "Radis (feuilles)", "type": "Feuille", "advice": "Très bon, à donner régulièrement." },
+      { "name": "Mauve", "type": "Feuille/Fleur", "advice": "Très bonne, stimule l'appétit." },
+      { "name": "Courgette", "type": "Légume", "advice": "En petits morceaux, occasionnellement." }
+    ],
+    "tips": [
+      "Privilégier les feuilles et fleurs sauvages.",
+      "Limiter les fruits et légumes riches en eau.",
+      "Complémenter en calcium et fournir de l'eau fraîche.",
+      "Éviter les aliments toxiques et les excès de protéines."
+    ]
+  }
+}

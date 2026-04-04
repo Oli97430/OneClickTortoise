@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "tortoise_list": "Fiches tortues",
+    "nutrition": "Nutrition",
+    "gallery": "Galerie",
+    "dashboard": "Dashboard",
+    "patreon": "Patreon",
+    "contact": "Contact"
+  },
+  "patreon": {
+    "title": "Rejoignez-nous sur Patreon",
+    "description": "En soutenant notre projet sur Patreon, vous contribuez directement à améliorer le bien-être de nos tortues Sulcata et Radiata. Votre soutien ne concerne pas la vente des animaux, mais permet de financer l’optimisation de leurs habitats, la qualité de leur alimentation et les soins nécessaires pour leur offrir une vie saine et équilibrée. Installés actuellement dans un espace en location, nous sommes limités en surface ; disposer d’un terrain plus vaste, qu’il soit loué ou acquis, permettrait d’offrir à nos tortues un environnement plus proche de leur milieu naturel, propice à leur santé et à leur épanouissement. Pour vous associer à cette aventure, je posterai régulièrement des photos et actualiserai le suivi de leur poids, indicateur clé de leur santé, afin que vous puissiez constater l’impact concret de votre contribution. Ce suivi encourage naturellement à soutenir cette démarche de manière régulière, pour accompagner au mieux leur croissance et leur bien-être quotidien."
+  }
+}
